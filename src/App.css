@@ -1,0 +1,488 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.app-container {
+  min-height: 100vh;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #1a1a1a;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.rocket {
+  font-size: 1.5rem;
+}
+
+.wallet-btn {
+  padding: 0.5rem 1.25rem;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.wallet-btn:hover {
+  background: #e0e0e0;
+}
+
+/* Main Content - scrollable area above nav */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 5rem;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.hero h2 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  color: #888888;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.create-btn {
+  padding: 0.875rem 2rem;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 0.625rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 3rem;
+}
+
+.create-btn:hover {
+  background: #e8e8e8;
+  transform: translateY(-1px);
+}
+
+/* Token Section */
+.token-section {
+  padding: 0 1rem 3rem;
+}
+
+.token-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .token-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.token-column {
+  background: #111111;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #1a1a1a;
+}
+
+.column-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.new-badge {
+  background: #3b82f6;
+  color: white;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.fire {
+  font-size: 1.1rem;
+}
+
+/* Token List */
+.token-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Token Card */
+.token-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  background: #1a1a1a;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+}
+
+.token-card:hover {
+  background: #222222;
+  transform: translateX(2px);
+}
+
+.token-info {
+  flex: 1;
+}
+
+.token-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+}
+
+.token-price-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.token-price {
+  color: #aaaaaa;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.token-change {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+.positive {
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.15);
+}
+
+.negative {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* APE BUTTON */
+.ape-button {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ape-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.ape-button:hover::before {
+  left: 100%;
+}
+
+.ape-button:hover {
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.5);
+  background: linear-gradient(135deg, #ff7b45 0%, #ffa32e 100%);
+}
+
+.ape-button:active {
+  transform: scale(0.98);
+}
+
+.ape-icon {
+  font-size: 1rem;
+}
+
+.ape-text {
+  font-weight: 900;
+}
+
+/* ===== VIEW CONTAINERS (Create, Bag, Profile) ===== */
+.view-container {
+  padding: 2rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.view-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Create Form */
+.form-card {
+  background: #111111;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #1a1a1a;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #aaaaaa;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff6b35;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.launch-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  border: none;
+  border-radius: 0.75rem;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.launch-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+}
+
+/* Bag View */
+.bag-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #111111;
+  border-radius: 1rem;
+  border: 1px solid #1a1a1a;
+}
+
+.bag-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.bag-empty p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.bag-empty span {
+  color: #888888;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.bag-explore-btn {
+  padding: 0.75rem 1.5rem;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bag-explore-btn:hover {
+  background: #e0e0e0;
+}
+
+/* Profile View */
+.profile-card {
+  background: #111111;
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid #1a1a1a;
+  text-align: center;
+}
+
+.profile-avatar {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.profile-address {
+  color: #888888;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  font-family: monospace;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.stat {
+  background: #1a1a1a;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #22c55e;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: #888888;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ===== BOTTOM NAVIGATION ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #111111;
+  border-top: 1px solid #1a1a1a;
+  padding: 0.5rem 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1.25rem;
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0.75rem;
+}
+
+.nav-item:hover {
+  color: #aaaaaa;
+}
+
+.nav-item.active {
+  color: #ff6b35;
+  background: rgba(255, 107, 53, 0.1);
+}
+
+.nav-icon {
+  font-size: 1.4rem;
+}
+
+.nav-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
