@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react';
 import './App.css';
 
 type Tab = 'home' | 'create' | 'bag' | 'profile';
 
 function App() {
-  const [walletConnected, setWalletConnected] = useState(false);
+  const [tonConnectUI] = useTonConnectUI();
+  const walletAddress = useTonAddress();
   const [activeTab, setActiveTab] = useState<Tab>('home');
 
   const newTokens = [
@@ -37,8 +39,21 @@ function App() {
     { name: 'CUMROCKET', price: '0.00044 TON', change: '+99.9%' },
   ];
 
+  const handleConnect = () => {
+    if (walletAddress) {
+      tonConnectUI.disconnect();
+    } else {
+      tonConnectUI.openModal();
+    }
+  };
+
   const handleApe = (tokenName: string) => {
-    alert(`🦍 APE MODE ACTIVATED for ${tokenName}!`);
+    if (!walletAddress) {
+      alert('🦍 Connect your wallet first to APE!');
+      tonConnectUI.openModal();
+      return;
+    }
+    alert(`🦍 APE MODE ACTIVATED for ${tokenName}!\n\nWallet: ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`);
   };
 
   const TokenCard = ({ token }: { token: typeof newTokens[0] }) => (
@@ -125,37 +140,62 @@ function App() {
   const BagView = () => (
     <div className="view-container">
       <h2 className="view-title">💰 Your Bag</h2>
-      <div className="bag-empty">
-        <div className="bag-icon">👜</div>
-        <p>No tokens yet</p>
-        <span>Start apeing into some memecoins!</span>
-        <button className="bag-explore-btn" onClick={() => setActiveTab('home')}>Explore Tokens</button>
-      </div>
+      {walletAddress ? (
+        <div className="bag-connected">
+          <div className="wallet-info">
+            <span className="wallet-label">Connected</span>
+            <span className="wallet-addr">{walletAddress.slice(0, 8)}...{walletAddress.slice(-6)}</span>
+          </div>
+          <div className="bag-empty">
+            <div className="bag-icon">👜</div>
+            <p>No tokens yet</p>
+            <span>Start apeing into some memecoins!</span>
+            <button className="bag-explore-btn" onClick={() => setActiveTab('home')}>Explore Tokens</button>
+          </div>
+        </div>
+      ) : (
+        <div className="bag-empty">
+          <div className="bag-icon">🔒</div>
+          <p>Wallet not connected</p>
+          <span>Connect your wallet to see your bag</span>
+          <button className="bag-explore-btn" onClick={handleConnect}>Connect Wallet</button>
+        </div>
+      )}
     </div>
   );
 
   const ProfileView = () => (
     <div className="view-container">
       <h2 className="view-title">👤 Profile</h2>
-      <div className="profile-card">
-        <div className="profile-avatar">🦍</div>
-        <div className="profile-name">Ape King</div>
-        <div className="profile-address">EQA...7x9B</div>
-        <div className="profile-stats">
-          <div className="stat">
-            <div className="stat-value">12</div>
-            <div className="stat-label">Tokens</div>
+      {walletAddress ? (
+        <div className="profile-card">
+          <div className="profile-avatar">🦍</div>
+          <div className="profile-name">Ape King</div>
+          <div className="profile-address">{walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</div>
+          <div className="profile-stats">
+            <div className="stat">
+              <div className="stat-value">12</div>
+              <div className="stat-label">Tokens</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value">47</div>
+              <div className="stat-label">Trades</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value">+142%</div>
+              <div className="stat-label">PnL</div>
+            </div>
           </div>
-          <div className="stat">
-            <div className="stat-value">47</div>
-            <div className="stat-label">Trades</div>
-          </div>
-          <div className="stat">
-            <div className="stat-value">+142%</div>
-            <div className="stat-label">PnL</div>
-          </div>
+          <button className="disconnect-btn" onClick={handleConnect}>Disconnect</button>
         </div>
-      </div>
+      ) : (
+        <div className="profile-card not-connected">
+          <div className="profile-avatar">❓</div>
+          <div className="profile-name">Guest</div>
+          <div className="profile-address">Connect wallet to view profile</div>
+          <button className="bag-explore-btn" onClick={handleConnect}>Connect Wallet</button>
+        </div>
+      )}
     </div>
   );
 
@@ -173,8 +213,8 @@ function App() {
           <h1>OpenFun</h1>
           <span className="rocket">🚀</span>
         </div>
-        <button className="wallet-btn" onClick={() => setWalletConnected(!walletConnected)}>
-          {walletConnected ? 'Disconnect' : 'Connect Wallet'}
+        <button className={`wallet-btn ${walletAddress ? 'connected' : ''}`} onClick={handleConnect}>
+          {walletAddress ? `${walletAddress.slice(0, 4)}...${walletAddress.slice(-4)}` : 'Connect Wallet'}
         </button>
       </header>
 
